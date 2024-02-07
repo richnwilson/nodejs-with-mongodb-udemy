@@ -1,0 +1,4 @@
+{   
+    "watch" : ["views", "models", "database", "controllers", "middleware","app.js"],
+    "ext" : "js, css"
+}

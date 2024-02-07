@@ -1,0 +1,73 @@
+@layout('layouts.app')
+
+@section('styles')
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+@endsection
+
+@section('content')
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('/img/about-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>New Post</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        @if(errors.length >0)
+          <ul class="list-group">
+          @each(error in errors) 
+            <li class="list-group-item text-danger">{{error}}</li>
+          @endeach
+          </ul>
+        @endif      
+        <form action="/post/store" method="POST">
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Title</label>
+                    <input type="text" placeholder="Title" name="title" value="{{data.title || ''}}" class="form-control">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Description</label>
+                    <input type="text" placeholder="Description" name="description" value="{{data.description || ''}}" class="form-control">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Contents</label>
+                    <textarea placeholder="Contents" cols="30" name="contents" rows="10" data-storeddata="{{data.contents || ''}}" class="form-control"></textarea>
+                </div>
+            </div> 
+            <div class="form-group my-4 text-center">
+                <button class="btn btn-primary">Create Post</button>
+            </div>                       
+        </form>
+     </div>
+    </div>
+  </div>
+
+  <hr>
+@endsection
+
+@section('javascript')
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+  <script>
+    $('textarea').html($('textarea').data('storeddata'));  
+    $('textarea').summernote({
+      placeholder: 'Enter your blog contents here',
+      tabsize: 2,
+      height: 100
+    });
+  </script>    
+@endsection
